@@ -1,0 +1,3 @@
+databaseChangeLog:
+  - include:
+      file: db/migration/changeset/000-initial-schema.yaml

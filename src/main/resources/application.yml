@@ -1,8 +1,48 @@
-#
-# application.yml — главный конфигурационный файл Spring Boot.
+server:
+  port: 8080
+spring:
+  application:
+    name: bankcards
+  datasource:
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
 
-Что нужно сделать:
-  - Указать настройки подключения к базе данных.
-  - Указать порт приложения.
-  - Настроить параметры безопасности и JWT.
-  - Включить Swagger UI.
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+  liquibase:
+    enabled: true
+    change-log: classpath:db/migration/db.changelog-master.yaml
+springdoc:
+  api-docs:
+    enabled: true
+    path: /v3/api-docs
+  swagger-ui:
+    enabled: true
+    path: /swagger-ui.html
+logging:
+  level:
+    '[com.example.bankcards]': DEBUG
+    '[org.springframework.security]': INFO
+    '[org.springframework.web]': INFO
+    '[org.springdoc]': DEBUG
+    '[org.springdoc.api]': TRACE
+application:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration: ${JWT_EXPIRATION}
+  encryption:
+    secret-key: ${SECRET_KEY}
+  cors:
+    origins:
+    methods:
+      - POST
+      - GET
+      - PUT
+      - DELETE
+    headers: "*"
+    allowedCredentials: true
+    cache:
+      maxAge: 3600

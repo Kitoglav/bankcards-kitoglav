@@ -7,6 +7,8 @@ import com.example.bankcards.exception.EntityAlreadyExistsException;
 import com.example.bankcards.exception.EntityNotFoundException;
 import com.example.bankcards.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,11 +19,11 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
-    public User findUser(final String username) throws EntityNotFoundException{
+    private User findUser(final String username) throws EntityNotFoundException {
         return userRepository.findByUsername(username).orElseThrow(() -> new EntityNotFoundException("User %s not found".formatted(username)));
     }
 
-    public User findUser(final Long id) throws EntityNotFoundException {
+    private User findUser(final Long id) throws EntityNotFoundException {
         return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User with id %s not found".formatted(id)));
     }
 
@@ -34,7 +36,7 @@ public class UserService {
 
     @Transactional
     public User createNewUser(final CreateUserRequest request) throws EntityAlreadyExistsException {
-        if(userRepository.existsByUsername(request.username())) {
+        if (userRepository.existsByUsername(request.username())) {
             throw new EntityAlreadyExistsException("User %s already exists".formatted(request.username()));
         }
         User user = new User();
@@ -47,5 +49,15 @@ public class UserService {
     @Transactional(readOnly = true)
     public User getUser(Long userId) {
         return findUser(userId);
+    }
+
+    @Transactional(readOnly = true)
+    public User getUser(String username) {
+        return findUser(username);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<User> getUsers(final Pageable pageable) {
+        return userRepository.findAll(pageable);
     }
 }

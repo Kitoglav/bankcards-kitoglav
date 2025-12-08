@@ -1,0 +1,68 @@
+databaseChangeLog:
+  - changeSet:
+      id: 002-insert-test-data
+      author: Kitoglav
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 1
+              - column:
+                  name: username
+                  value: "testuser"
+              - column:
+                  name: password_hash
+                  value: "$2a$10$NdDfzNTST0Hjq8CVmptPO.V1pbZBshmnlf.QlXBup1Ni5fIIui.mq" #123456
+              - column:
+                  name: role
+                  value: "USER"
+              - column:
+                  name: created_at
+                  valueComputed: NOW()
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 2
+              - column:
+                  name: username
+                  value: "testadmin"
+              - column:
+                  name: password_hash
+                  value: "$2a$10$NdDfzNTST0Hjq8CVmptPO.V1pbZBshmnlf.QlXBup1Ni5fIIui.mq" #123456
+              - column:
+                  name: role
+                  value: "ADMIN"
+              - column:
+                  name: created_at
+                  valueComputed: NOW()
+        - insert:
+            tableName: cards
+            columns:
+              - column:
+                  name: id
+                  valueNumeric: 1
+              - column:
+                  name: card_number_hash
+                  value: "rRocF0MN/WOy7t7LbDiwo7g87aq/gzQXJxvd5z64aloWgPQjPsfs1geA3c8=" #1234123412341234
+              - column:
+                  name: last_four_digits
+                  value: "1234"
+              - column:
+                  name: expiry_date
+                  value: "2027-10-10"
+              - column:
+                  name: balance
+                  valueNumeric: 150.0
+              - column:
+                  name: card_status
+                  value: "ACTIVE"
+              - column:
+                  name: user_id
+                  valueNumeric: 1
+              - column:
+                  name: created_at
+                  valueComputed: NOW()

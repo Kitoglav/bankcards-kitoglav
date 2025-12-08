@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/migration/changeset/000-initial-schema.yaml
   - include:
       file: db/migration/changeset/001-delete-cvv-hash-attribute.yaml
+  - include:
+      file: db/migration/changeset/002-insert-test-data.yaml

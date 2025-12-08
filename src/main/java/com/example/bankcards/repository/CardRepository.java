@@ -13,5 +13,7 @@ import java.util.List;
 public interface CardRepository extends JpaRepository<Card, Long> {
     List<Card> findAllByUser(final User owner);
 
+    boolean existsByCardNumberHash(final String cardNumberHash);
+
     Page<Card> findAllByUser(final User owner, final Pageable pageable);
 }

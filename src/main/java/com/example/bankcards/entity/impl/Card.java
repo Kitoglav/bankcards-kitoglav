@@ -27,9 +27,6 @@ public class Card extends JpaUpdatableEntity {
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal balance;
 
-    @Column(name = "cvv_hash", nullable = false)
-    private String cvvHash;
-
     @Column(name = "card_status", nullable = false)
     @Enumerated(EnumType.STRING)
     private CardStatus cardStatus;

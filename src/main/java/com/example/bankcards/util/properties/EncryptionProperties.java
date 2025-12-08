@@ -1,6 +1,6 @@
 package com.example.bankcards.util.properties;
 
-import com.example.bankcards.exception.InternalValidationException;
+import com.example.bankcards.exception.InternalException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.StringUtils;
 
@@ -12,16 +12,16 @@ public record EncryptionProperties(String secretKey) {
         validateSecretKey(secretKey);
     }
 
-    private static void validateSecretKey(final String secretKey) throws InternalValidationException {
+    private static void validateSecretKey(final String secretKey) throws InternalException {
         if (!StringUtils.hasText(secretKey))
-            throw new InternalValidationException("Encryption secret key is null or blank");
+            throw new InternalException("Encryption secret key is null or blank");
         try {
             byte[] bytes = Base64.getDecoder().decode(secretKey);
             if (bytes.length != 32) {
-                throw new InternalValidationException("Encryption secret key must be 256 bits (32 bytes), got: %d bytes".formatted(bytes.length));
+                throw new InternalException("Encryption secret key must be 256 bits (32 bytes), got: %d bytes".formatted(bytes.length));
             }
         } catch (IllegalArgumentException e) {
-            throw new InternalValidationException("Encryption secret key is not Base64");
+            throw new InternalException("Encryption secret key is not Base64");
         }
     }
 }

@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-delete-cvv-hash-attribute
+      author: Kitoglav
+      changes:
+        - dropColumn:
+            tableName: cards
+            columnName: cvv_hash

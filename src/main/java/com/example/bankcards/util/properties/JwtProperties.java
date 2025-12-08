@@ -1,7 +1,7 @@
 package com.example.bankcards.util.properties;
 
 import com.example.bankcards.exception.CryptographyException;
-import com.example.bankcards.exception.InternalValidationException;
+import com.example.bankcards.exception.InternalException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.StringUtils;
 
@@ -13,11 +13,11 @@ public record JwtProperties(String secret, long expiration) {
         validateJwt(secret, expiration);
     }
 
-    private static void validateJwt(final String secret, final long expiration) throws InternalValidationException {
+    private static void validateJwt(final String secret, final long expiration) throws InternalException {
         if (!StringUtils.hasText(secret))
-            throw new InternalValidationException("JWT secret is null or blank");
+            throw new InternalException("JWT secret is null or blank");
         if(expiration < 0)
-            throw new InternalValidationException("JWT expiration is negative");
+            throw new InternalException("JWT expiration is negative");
         try {
             byte[] bytes = Base64.getDecoder().decode(secret);
             if (bytes.length != 32) {

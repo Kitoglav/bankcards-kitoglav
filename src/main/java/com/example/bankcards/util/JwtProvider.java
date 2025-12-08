@@ -1,6 +1,7 @@
 package com.example.bankcards.util;
 
 
+import com.example.bankcards.dto.login.JwtData;
 import com.example.bankcards.exception.AuthenticationException;
 import com.example.bankcards.util.properties.JwtProperties;
 import io.jsonwebtoken.*;
@@ -14,6 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -30,14 +32,17 @@ public final class JwtProvider {
         return Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String generateToken(final UserDetails userDetails) {
-        return Jwts.builder()
+    public JwtData generateToken(final UserDetails userDetails) {
+        Date issuedAt = new Date();
+        Date expiresAt = new Date(issuedAt.getTime() + jwtProperties.expiration());
+        String token = Jwts.builder()
                 .subject(userDetails.getUsername())
                 .claim("roles", userDetails.getAuthorities().stream().map(GrantedAuthority::getAuthority).toList())
-                .issuedAt(new Date())
-                .expiration(new Date(System.currentTimeMillis() + jwtProperties.expiration()))
+                .issuedAt(issuedAt)
+                .expiration(expiresAt)
                 .signWith(getSigningKey(), Jwts.SIG.HS256)
                 .compact();
+        return new JwtData(token, issuedAt, expiresAt);
     }
 
     public Claims validateToken(final String token) throws AuthenticationException.InvalidToken {

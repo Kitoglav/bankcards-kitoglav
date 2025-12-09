@@ -12,7 +12,11 @@ import java.time.LocalDateTime;
 public abstract class JpaUpdatableEntity extends JpaEntity {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
-
+    /**
+     * Не использовать нигде, кроме юнит-тестов
+     * @param id
+     */
+    @Deprecated
     public JpaUpdatableEntity(Long id) {
         super(id);
     }

@@ -13,17 +13,30 @@ public abstract class JpaEntity {
     @Column(name = "id", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
-    @Setter
     protected Long id;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
+    /**
+     * Не использовать нигде, кроме юнит-тестов
+     * @param id
+     */
+    @Deprecated
     public JpaEntity(Long id) {
         this.id = id;
     }
 
     public JpaEntity() {
+    }
+
+
+    /**
+     * Не использовать нигде, кроме юнит-тестов
+     */
+    @Deprecated
+    public void setId(Long id) {
+        this.id = id;
     }
 
     @PrePersist

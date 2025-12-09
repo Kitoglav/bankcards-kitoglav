@@ -1,6 +1,5 @@
 package com.example.bankcards.util.properties;
 
-import com.example.bankcards.exception.CryptographyException;
 import com.example.bankcards.exception.InternalException;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.util.StringUtils;

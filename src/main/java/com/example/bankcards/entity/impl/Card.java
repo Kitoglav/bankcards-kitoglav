@@ -34,7 +34,11 @@ public class Card extends JpaUpdatableEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
-
+    /**
+     * Не использовать нигде, кроме юнит-тестов
+     * @param id
+     */
+    @Deprecated
     public Card(Long id) {
         super(id);
     }

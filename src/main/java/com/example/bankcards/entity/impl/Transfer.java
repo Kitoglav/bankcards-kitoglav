@@ -27,7 +27,11 @@ public class Transfer extends JpaEntity {
 
     @Column(nullable = false, precision = 15, scale = 2)
     private BigDecimal amount;
-
+    /**
+     * Не использовать нигде, кроме юнит-тестов
+     * @param id
+     */
+    @Deprecated
     public Transfer(Long id) {
         super(id);
     }

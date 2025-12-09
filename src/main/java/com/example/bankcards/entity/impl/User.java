@@ -21,7 +21,11 @@ public class User extends JpaUpdatableEntity {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Role role;
-
+    /**
+     * Не использовать нигде, кроме юнит-тестов
+     * @param id
+     */
+    @Deprecated
     public User(Long id) {
         super(id);
     }

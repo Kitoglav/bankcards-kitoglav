@@ -20,11 +20,11 @@ public record JwtProperties(String secret, long expiration) {
             throw new InternalException("JWT expiration is negative");
         try {
             byte[] bytes = Base64.getDecoder().decode(secret);
-            if (bytes.length != 32) {
-                throw new CryptographyException.Encryption("JWT secret must be 256 bits (32 bytes), got: %d bytes".formatted(bytes.length));
+            if (bytes.length < 32) {
+                throw new InternalException("JWT secret must be greater than 256 bits (32 bytes), got: %d bytes".formatted(bytes.length));
             }
         } catch (IllegalArgumentException e) {
-            throw new CryptographyException.Encryption("JWT secret is not Base64");
+            throw new InternalException("JWT secret is not Base64");
         }
     }
 }

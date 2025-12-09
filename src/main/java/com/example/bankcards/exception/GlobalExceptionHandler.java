@@ -5,6 +5,7 @@ import com.example.bankcards.dto.error.DataValidationErrorResponse;
 import com.example.bankcards.dto.error.ErrorResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -93,6 +94,10 @@ public final class GlobalExceptionHandler {
     @ExceptionHandler(TransferException.class)
     public ResponseEntity<ErrorResponse> handleTransferExceptions(final TransferException exception, final WebRequest request) {
         return makeErrorResponse(exception, request, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ErrorResponse> handleBadCredentialsException(final BadCredentialsException exception, final WebRequest request) {
+        return makeErrorResponse(exception, request, HttpStatus.UNAUTHORIZED);
     }
 
     @ExceptionHandler(Exception.class)

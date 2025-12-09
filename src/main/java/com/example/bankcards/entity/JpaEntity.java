@@ -2,6 +2,7 @@ package com.example.bankcards.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
@@ -12,10 +13,18 @@ public abstract class JpaEntity {
     @Column(name = "id", nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Getter
+    @Setter
     protected Long id;
 
     @Column(name = "created_at", columnDefinition = "TIMESTAMP", nullable = false, updatable = false)
     private LocalDateTime createdAt;
+
+    public JpaEntity(Long id) {
+        this.id = id;
+    }
+
+    public JpaEntity() {
+    }
 
     @PrePersist
     protected void onCreate() {

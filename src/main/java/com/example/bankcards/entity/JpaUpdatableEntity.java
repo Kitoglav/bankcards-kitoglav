@@ -13,6 +13,13 @@ public abstract class JpaUpdatableEntity extends JpaEntity {
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP")
     private LocalDateTime updatedAt;
 
+    public JpaUpdatableEntity(Long id) {
+        super(id);
+    }
+
+    public JpaUpdatableEntity() {
+    }
+
     @PreUpdate
     protected void onUpdate() {
         this.updatedAt = LocalDateTime.now();

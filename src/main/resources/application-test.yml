@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 spring:
   application:
     name: bankcards
@@ -10,25 +10,15 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
     show-sql: false
   liquibase:
-    enabled: true
-    change-log: classpath:db/migration/db.changelog-master.yaml
+    enabled: false
 springdoc:
   api-docs:
-    enabled: true
-    path: /v3/api-docs
+    enabled: false
   swagger-ui:
-    enabled: true
-    path: /swagger-ui.html
-logging:
-  level:
-    '[com.example.bankcards]': DEBUG
-    '[org.springframework.security]': INFO
-    '[org.springframework.web]': INFO
-    '[org.springdoc]': DEBUG
-    '[org.springdoc.api]': TRACE
+    enabled: false
 application:
   jwt:
     secret: ${JWT_SECRET}
@@ -38,11 +28,7 @@ application:
   cors:
     origins:
     methods:
-      - POST
-      - GET
-      - PUT
-      - DELETE
-    headers: "*"
+    headers:
     allowedCredentials: true
     cache:
       maxAge: 3600
